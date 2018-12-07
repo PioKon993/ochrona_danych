@@ -3,6 +3,7 @@ import sys
 import os
 import sys
 import random
+import math
 
 def extended_euklides(a, n):
 
@@ -38,12 +39,36 @@ def generate_key(kind_of_key,values):
             f.write(str(values[x])+'\n')
         f.close()
 
-if __name__ == '__main__':
+def generate_prime_number(range_min, range_max):
 
-    #p=random.randint(1,1000000000)
-    #q=random.randint(1,1000000000)
-    p=random.randint(1,20)
-    q=random.randint(1,40)
+    if range_min<2:
+        print('Range min must be greater or equal than 2')
+        sys.exit(1)
+
+    prime_number=0
+    prime_number_candidate=0
+    isPrime=False
+
+    while isPrime==False:
+        prime_number_candidate=random.randint(range_min, range_max)
+        if check_is_prime(prime_number_candidate)!=False:
+            isPrime=True
+            prime_number=prime_number_candidate
+    return prime_number
+
+def check_is_prime(number):
+
+    for i in range(2,int(math.sqrt(number)+1)):
+        if number % i == 0:
+            return False
+    else:
+        return True
+
+if __name__ == '__main__':
+    #p=generate_prime_number(2,1000000000)
+    #q=generate_prime_number(2,1000000000)
+    p=generate_prime_number(2,120)
+    q=generate_prime_number(2,85)
     e=random.randint(1,100)
     n=p*q
     phi=(p-1)*(q-1)
@@ -51,6 +76,7 @@ if __name__ == '__main__':
     while NWD(e,phi)!=1:
         e=random.randint(1,100)
 
+    print 'p = '+str(p),'q = '+str(q),'e = '+str(e),'n = '+str(n),'phi = '+str(phi)
     d=extended_euklides(e,phi)
     publicKey=[e,n]
     privateKey=[d,n]
