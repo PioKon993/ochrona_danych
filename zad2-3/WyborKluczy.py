@@ -67,8 +67,8 @@ def check_is_prime(number):
 if __name__ == '__main__':
     #p=generate_prime_number(2,1000000000)
     #q=generate_prime_number(2,1000000000)
-    p=generate_prime_number(2,120)
-    q=generate_prime_number(2,85)
+    p=generate_prime_number(510,1000)
+    q=generate_prime_number(510,1000)
     e=random.randint(1,100)
     n=p*q
     phi=(p-1)*(q-1)
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     while NWD(e,phi)!=1:
         e=random.randint(1,100)
 
-    print 'p = '+str(p),'q = '+str(q),'e = '+str(e),'n = '+str(n),'phi = '+str(phi)
+    print('p = '+str(p),'q = '+str(q),'e = '+str(e),'n = '+str(n),'phi = '+str(phi))
     d=extended_euklides(e,phi)
     publicKey=[e,n]
     privateKey=[d,n]
