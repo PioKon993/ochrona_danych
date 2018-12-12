@@ -4,6 +4,10 @@ import os
 import sys
 import random
 import math
+from tkinter import *
+from tkinter import ttk
+import tkinter as tk
+
 
 def extended_euklides(a, n):
 
@@ -63,6 +67,16 @@ def check_is_prime(number):
             return False
     else:
         return True
+    
+def popupmsg(msg):
+    popup = tk.Tk()
+    popup.wm_title("Sukces!")
+    label = ttk.Label(popup, text=msg)
+    label.pack(side="top", pady=10, padx=10)
+    B1 = ttk.Button(popup, text="To świetnie!", command = popup.destroy)
+    B1.pack()
+    popup.mainloop()
+    
 
 if __name__ == '__main__':
     #p=generate_prime_number(2,1000000000)
@@ -76,9 +90,15 @@ if __name__ == '__main__':
     while NWD(e,phi)!=1:
         e=random.randint(1,100)
 
-    print('p = '+str(p),'q = '+str(q),'e = '+str(e),'n = '+str(n),'phi = '+str(phi))
+    komunikat=("Stworzono klucze!\n"+"p = "+str(p) + "q = "+str(q)+"\ne = "+str(e)+"n = "+str(n)+"phi = "+str(phi))
     d=extended_euklides(e,phi)
     publicKey=[e,n]
     privateKey=[d,n]
     generate_key('public', publicKey)
     generate_key('private', privateKey)
+
+    popupmsg(komunikat)
+    root.quit()
+    
+root = tk.Tk()
+root.mainloop()
