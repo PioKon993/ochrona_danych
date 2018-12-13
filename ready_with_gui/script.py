@@ -11,6 +11,10 @@ from SzyfrujRSA import *
 from WyborKluczy import *
 
 root = tk.Tk()
+root.title('Kudujemy!')
+root.geometry('500x300')
+
+informacja = "i"
     
 def popupmsg(msg, title, buttonText):
     popup = tk.Tk()
@@ -20,11 +24,25 @@ def popupmsg(msg, title, buttonText):
     B1 = ttk.Button(popup, text= buttonText, command = popup.destroy)
     B1.pack()
     popup.mainloop()
+
+def codingAction():
+    code_file()
+    text_encoding(text_to_encode)
     
 def actionGenerateKeys():
     actionButton.config(state="disabled")
     popupmsg(komunikat, "Sukces!", "Dziękuję Panie Programie")
 
+def code_file_popup():
+    encode_file()
+    codeButton.config(state="disabled")
+    popupmsg(informacja, "Sukces!", "Dziękuję Panie Programie")
+
+def decode_file_popup():
+    decodeButton.config(state="disabled")
+    decode_file()
+    popupmsg(informacja, "Sukces!", "Dziękuję Panie Programie")
+    
 if __name__ == '__main__':
     #p=generate_prime_number(2,1000000000)
     #q=generate_prime_number(2,1000000000)
@@ -45,11 +63,14 @@ if __name__ == '__main__':
     generate_key('private', privateKey)
 
 
-actionButton = ttk.Button(root, text ="Generuj klucz", command = actionGenerateKeys)
-actionButton.pack()
+    actionButton = ttk.Button(root, text ="Generuj klucz", command = actionGenerateKeys)
+    actionButton.place(x = 30, y = 30)
 
-codeButton = ttk.Button(root, text ="Generuj klucz", command = actionGenerateKeys)
-codeButton.pack()
-root.quit()
-    
-root.mainloop()
+    codeButton = ttk.Button(root, text ="Zakoduj plik", command = code_file_popup)
+    codeButton.place(x = 180, y = 30)
+
+    decodeButton = ttk.Button(root, text ="Dekoduj plik", command = decode_file_popup)
+    decodeButton.place(x = 320, y = 30)
+    root.quit()
+        
+    root.mainloop()

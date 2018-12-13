@@ -1,4 +1,3 @@
-  
 def rsa_encoding(a, w, n):
     # Funkcja oblicza modulo potęgę podanej liczby
     #
@@ -73,18 +72,16 @@ def text_decoding():
         result += chr(first_ascii_letter) + chr(second_ascii_letter)
     return result
 
-
-if __name__ == '__main__':
+def encode_file():
     with open('text.txt') as f:
-        text = f.read()
+        text_to_encode = f.read()
 
-    text_message = ("tekst do zaszyfrowania: \n\n" + str(text))
+    print("tekst do zaszyfrowania: ")
+    print(text_to_encode)
 
-    text_encoding(text)
+    text_encoding(text_to_encode)
 
     decoded_text = text_decoding()
-    decoded_message = ("odkodowany tekst: " + str(decoded_text))
-
-    komunikat = ("Pełen sukces!\n\n " + text_message + decoded_message)
+    print("odkodowany tekst: " + decoded_text)
 
 
