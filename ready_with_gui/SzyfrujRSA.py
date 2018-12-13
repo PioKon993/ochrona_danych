@@ -72,16 +72,16 @@ def text_decoding():
         result += chr(first_ascii_letter) + chr(second_ascii_letter)
     return result
 
-def encode_file():
+if __name__ == '__main__':
     with open('text.txt') as f:
         text_to_encode = f.read()
 
-    print("tekst do zaszyfrowania: ")
-    print(text_to_encode)
-
-    text_encoding(text_to_encode)
-
-    decoded_text = text_decoding()
-    print("odkodowany tekst: " + decoded_text)
+##    print("tekst do zaszyfrowania: ")
+##    print(text_to_encode)
+##
+##    text_encoding(text_to_encode)
+##
+##    decoded_text = text_decoding()
+##    print("odkodowany tekst: " + decoded_text)
 
 

@@ -34,14 +34,14 @@ def actionGenerateKeys():
     popupmsg(komunikat, "Sukces!", "Dziękuję Panie Programie")
 
 def code_file_popup():
-    encode_file()
-    codeButton.config(state="disabled")
-    popupmsg(informacja, "Sukces!", "Dziękuję Panie Programie")
+    f = open('text.txt')
+    text_to_encode = f.read()
+    popupmsg(("tekst do zaszyfrowania: "+str(text_to_encode)), "Sukces!", "Dziękuję Panie Programie")
+    text_encoding(text_to_encode)
 
 def decode_file_popup():
-    decodeButton.config(state="disabled")
-    decode_file()
-    popupmsg(informacja, "Sukces!", "Dziękuję Panie Programie")
+    decoded_text = text_decoding()
+    popupmsg(("odkodowany tekst: " + str(decoded_text)), "Sukces!", "Dziękuję Panie Programie")
     
 if __name__ == '__main__':
     #p=generate_prime_number(2,1000000000)
