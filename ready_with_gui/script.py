@@ -35,7 +35,7 @@ def actionGenerateKeys():
     popupmsg(komunikat, "Sukces!", "Dziękuję Panie Programie")
 
 def code_file_popup():
-    publickeyfile = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with public key.')
+    publickeyfile = filedialog.askopenfile(parent=root, mode='r',title='Choose a file with public key.')
     text_to_encode_file = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with text.')
     text_to_encode = text_to_encode_file.read()
     popupmsg(("tekst do zaszyfrowania: "+str(text_to_encode)), "Sukces!", "Dziękuję Panie Programie")
