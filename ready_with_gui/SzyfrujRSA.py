@@ -14,8 +14,8 @@ def rsa_encoding(a, w, n):
     return result
 
 
-def text_encoding(text_to_encode):
-    with open('public.key') as file:
+def text_encoding(publickeyfiletext_to_encode):
+    with open(publickeyfile) as file:
         e = int(file.readline())
         n = int(file.readline())
 
@@ -55,12 +55,12 @@ def add_zeros_if_odd_length(text_to_encode):
     return text_to_encode
 
 
-def text_decoding():
-    with open('private.key') as file:
+def text_decoding(private_key_file, textenc):
+    with open(private_key_file) as file:
         d = int(file.readline())
         n = int(file.readline())
 
-    with open('text.enc') as file:
+    with open(textenc) as file:
         secret_text = file.read()
     secret_numbers = secret_text.split(",")
 

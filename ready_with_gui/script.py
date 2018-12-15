@@ -6,12 +6,13 @@ import random
 import math
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
 import tkinter as tk
 from SzyfrujRSA import *
 from WyborKluczy import *
 
 root = tk.Tk()
-root.title('Kudujemy!')
+root.title('Kodujemy!')
 root.geometry('500x300')
 
 informacja = "i"
@@ -34,13 +35,16 @@ def actionGenerateKeys():
     popupmsg(komunikat, "Sukces!", "Dziękuję Panie Programie")
 
 def code_file_popup():
-    f = open('text.txt')
-    text_to_encode = f.read()
+    publickeyfile = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with public key.')
+    text_to_encode_file = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with text.')
+    text_to_encode = text_to_encode_file.read()
     popupmsg(("tekst do zaszyfrowania: "+str(text_to_encode)), "Sukces!", "Dziękuję Panie Programie")
     text_encoding(text_to_encode)
 
 def decode_file_popup():
-    decoded_text = text_decoding()
+    privatekey_file = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with private key.')
+    text_enc = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with encoded text.')
+    decoded_text = text_decoding(privatekey_file, text_enc)
     popupmsg(("odkodowany tekst: " + str(decoded_text)), "Sukces!", "Dziękuję Panie Programie")
     
 if __name__ == '__main__':

@@ -1,5 +1,14 @@
 # -*- coding: utf-8 -*-
 from random import randrange
+from tkinter import *
+from tkinter import ttk
+import tkinter as tk
+
+root = tk.Tk()
+root.title('Sprawdźmy liczbę!')
+root.geometry('500x300')
+
+
 
 rand_number = 0
 rand_choice = ''
@@ -32,3 +41,11 @@ while(i < tries):
 if(is_prime):
     print('Liczba %d jest prawdopodobnie pierwsza' % (rand_number, ))
 
+
+losujButton = ttk.Button(root, text ="Generuj klucz", command = actionGenerateKeys)
+losujButton.place(x = 30, y = 30)
+
+liczbaButton = ttk.Button(root, text ="Zakoduj plik", command = code_file_popup)
+liczbaButton.place(x = 180, y = 30)
+
+root.mainloop()
