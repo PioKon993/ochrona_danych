@@ -14,7 +14,7 @@ def rsa_encoding(a, w, n):
     return result
 
 
-def text_encoding(publickeyfiletext_to_encode):
+def text_encoding(publickeyfile, text_to_encode):
     with open(publickeyfile) as file:
         e = int(file.readline())
         n = int(file.readline())
