@@ -37,6 +37,7 @@ def codingAction():
 def actionGenerateKeys():
     actionButton.config(state="disabled")
     messagebox.showinfo("Sukces!", komunikat)
+    messagebox.showinfo("Sukces!", klucze)
 
 def code_file_popup():
     publickeyfile = filedialog.askopenfile(parent=root, mode='r',title='Choose a file with public key.')
@@ -63,13 +64,13 @@ if __name__ == '__main__':
     while NWD(e,phi)!=1:
         e=random.randint(1,100)
 
-    komunikat=("Stworzono klucze!\n"+"p = "+str(p) + "\nq = "+str(q)+"\ne = "+str(e)+"\nn = "+str(n)+"\nphi = "+str(phi))
     d=extended_euklides(e,phi)
     publicKey=[e,n]
     privateKey=[d,n]
     generate_key('public', publicKey)
     generate_key('private', privateKey)
-
+    komunikat=("Stworzono klucze!\n"+"\nWartości zmiennych:\n"+"p = "+str(p) + "\nq = "+str(q)+"\ne = "+str(e)+"\nn = "+str(n)+"\nphi = "+str(phi))
+    klucze = ("Klucz publiczny: "+str(publicKey)+"\nKlucz prywatny: "+str(privateKey))
 
     actionButton = ttk.Button(root, text ="Generuj klucz", command = actionGenerateKeys)
     actionButton.place(x = 30, y = 30)
