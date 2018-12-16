@@ -44,12 +44,12 @@ def code_file_popup():
     text_to_encode_file = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with text.')
     text_to_encode = text_to_encode_file.read()
     messagebox.showinfo("Sukces!", "Tekst do zaszyfrowania: \n%s" % text_to_encode,)
-    text_encoding(publickeyfile, text_to_encode)
+    text_encoding(publickeyfile.name, text_to_encode)
 
 def decode_file_popup():
     privatekey_file = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with private key.')
     text_enc = filedialog.askopenfile(parent=root,mode='r',title='Choose a file with encoded text.')
-    decoded_text = text_decoding(privatekey_file, text_enc)
+    decoded_text = text_decoding(privatekey_file.name, text_enc.name)
     messagebox.showinfo("Sukces!","Odkodowany tekst: \n%s" % decoded_text)
     
 if __name__ == '__main__':
