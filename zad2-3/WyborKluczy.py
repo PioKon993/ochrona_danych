@@ -90,14 +90,16 @@ if __name__ == '__main__':
     while NWD(e,phi)!=1:
         e=random.randint(1,100)
 
-    komunikat=("Stworzono klucze!\n"+"p = "+str(p) + "q = "+str(q)+"\ne = "+str(e)+"n = "+str(n)+"phi = "+str(phi))
     d=extended_euklides(e,phi)
     publicKey=[e,n]
     privateKey=[d,n]
     generate_key('public', publicKey)
     generate_key('private', privateKey)
-
+    
+    komunikat=("Stworzono klucze!\n\n"+"Wartości zmiennych:\n"+ "p = "+str(p) + " q = "+str(q)+"\n e = "+str(e)+" n = "+str(n)+" phi = "+str(phi))
+    klucze = ("Klucz publiczny: "+str(publicKey)+"\nKlucz prywatny: "+str(privateKey))
     popupmsg(komunikat)
+    popupmsg(klucze)
     root.quit()
     
 root = tk.Tk()
