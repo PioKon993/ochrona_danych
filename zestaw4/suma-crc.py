@@ -2,64 +2,73 @@ from tkinter import *
 from tkinter import messagebox
 
 
-def validate_pesel(pesel):
-    check_pesel_length(pesel)
-    check_pesel_is_number(pesel)
+def suma_crc(data, input_divider):
+    binaries = get_binaries_from_str(data)
+    divider = get_divider_from_input(input_divider)
 
-    weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
-    control_sum = 0
+    # binaries = "11010011101110"
+    # divider = "1011"
+
+    divider_length = len(divider)
+    n = divider_length - 1
+    binaries += "0" * n
+    binaries_result = list(binaries)
+
     i = 0
-    for weight in weights:
-        control_num = weight * int(pesel[i:i + 1])
-        if control_sum > 9:
-            control_sum = control_sum % 10
-        control_sum += control_num
+    while i < (len(binaries) - divider_length):
+        if binaries_result[i] == "1":
+            for x in range(divider_length):
+                bit = logical_xor(binaries_result[i + x], divider[x])
+                binaries_result[i + x] = bit
+            # print(''.join(binaries_result))
         i += 1
 
-    if control_sum > 9:
-        control_sum = control_sum % 10
+    str_binaries_result = ''.join(binaries_result)
+    crc_sum = str_binaries_result[-n:]
+    return crc_sum
 
-    result_number = 10 - control_sum
-    last_num_in_pesel = int(pesel[10])
-    if result_number == last_num_in_pesel:
-        return True
+
+def get_divider_from_input(input_divider):
+    full_divider = get_binaries_from_str(input_divider)
+    max_divder_length = 8
+    if len(full_divider) > 8:
+        divider = full_divider[-max_divder_length:]
     else:
-        return False
+        divider = ("0" * (max_divder_length - len(full_divider)) + full_divider)
+    return divider
 
 
-def check_pesel_is_number(pesel):
-    try:
-        int(pesel)
-    except ValueError:
-        raise ValueError("podany pesel zawiera niepoprawne znaki")
+def get_binaries_from_str(data):
+    return ' '.join(format(ord(x), 'b') for x in data)
 
 
-def check_pesel_length(pesel):
-    if len(pesel) != 11:
-        raise ValueError('wprowadzony PESEL nie ma dokładnie 11 cyfr')
+def logical_xor(a, b):
+    if a == b:
+        return "0"
+    else:
+        return "1"
 
 
-def handle_pesel_validation():
-    try:
-        valid_control_num = validate_pesel(e1.get())
-        if valid_control_num:
-            succes_msg = "PESEL o numerze " + e1.get() + " jest poprawny"
-            messagebox.showinfo("OK", succes_msg)
-        else:
-            fail_msg = "PESEL o numerze " + e1.get() + " jest niepoprawny! Cyfra kontrolna się nie zgadza."
-            messagebox.showinfo("Błąd w walidacji PESEL", fail_msg)
-    except Exception as e:
-        messagebox.showinfo("Błąd w walidacji PESEL", 'Błąd walidacji: ' + str(e))
+def handle_sum_crc():
+    sum = suma_crc(e1.get(), e2.get())
+    messagebox.showinfo("Suma CRC", "Obliczona suma CRC to:\n" + sum)
 
 
 if __name__ == '__main__':
-    master = Tk()
-    master.title("walidacja PESELU")
-    master.geometry("300x100")
+    # print(suma_crc("siema", "5"))
 
-    Label(master, text="wprowadź PESEL").grid(row=0)
+    master = Tk()
+    master.title("Suma CRC")
+    master.geometry("500x120")
+    Label(master, text="Podaj ciąg znaków").grid(row=0)
+    Label(master, text="Podaj dzielnik do obliczenia sumy CRC (max 8 bitów)").grid(row=1)
+
     e1 = Entry(master)
+    e2 = Entry(master)
+
     e1.grid(row=0, column=1)
-    Button(master, text='waliduj PESEL', command=handle_pesel_validation).grid(row=3, column=1, sticky=W, pady=4)
+    e2.grid(row=1, column=1)
+
+    Button(master, text='oblicz sume CRC', command=handle_sum_crc).grid(row=3, column=1, sticky=W, pady=4)
 
     mainloop()
